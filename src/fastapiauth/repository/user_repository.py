@@ -26,11 +26,14 @@ class UserRepository:
         return result.scalar_one_or_none()
     
     async def register(self, user: UserCreate):
-        password = get_password_hash(user.password)
-        new_user = User(firstname=user.firstname,
-                        lastname=user.lastname,
-                        email_address=user.email_address,
-                        password=password)
+        user.password = get_password_hash(user.password)
+        # Map UserCreate to User. This is case sensitive. The fields must exactly match
+        new_user = User(**user.model_dump())
+        #password = get_password_hash(user.password)
+        #new_user = User(firstname=user.firstname,
+         #               lastname=user.lastname,
+          #              email_address=user.email_address,
+           #             password=password)
         self.db_session.add(new_user)
         await self.db_session.commit()
         await self.db_session.refresh(new_user)
