@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncConnection
 from jwt.exceptions import InvalidTokenError, ExpiredSignatureError
 from datetime import timedelta
