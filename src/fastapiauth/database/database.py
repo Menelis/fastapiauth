@@ -1,12 +1,11 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 from .. import DB_URL
+from ..models.user import User
+from ..models.book import Book
 
 class Base(DeclarativeBase):
     pass
-
-from ..models.user import User
-from ..models.book import Book
 
 my_tables = [Book.__table__, User.__table__]
 
