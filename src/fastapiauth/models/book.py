@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String, BigInteger
-from ..database.database import Base
+from src.fastapiauth.database.database import Base
 
 
 class Book(Base):

@@ -13,6 +13,9 @@ from alembic import context
 from src.fastapiauth import DB_URL
 from src.fastapiauth.database.database import Base
 
+from src.fastapiauth.models.user import User
+from src.fastapiauth.models.book import Book
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -29,7 +32,10 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+
 target_metadata = Base.metadata
+
+print("TABLES SEEN BY ALEMBIC:", target_metadata.tables.keys())
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -37,7 +43,7 @@ target_metadata = Base.metadata
 # ... etc.
 
 def do_run_migration(connection) -> None:
-    context.config(connection=connection, target_metadata=target_metadata)
+    context.configure(connection=connection, target_metadata=target_metadata)
     with context.begin_transaction():
         context.run_migrations()
         

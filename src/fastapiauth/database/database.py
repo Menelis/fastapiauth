@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
-from .. import DB_URL
+from src.fastapiauth import DB_URL
 
 
 class Base(DeclarativeBase):
