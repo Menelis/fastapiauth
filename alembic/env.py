@@ -1,18 +1,14 @@
 from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
 import asyncio
 from sqlalchemy.ext.asyncio import async_engine_from_config
-
-
 from alembic import context
-
 
 from src.fastapiauth import DB_URL
 from src.fastapiauth.database.database import Base
 
+# WITHOUT THIS IMPORT, SCRIPT MIGRATION WILL NOT HAPPEN FOR MODELS
+## THERE MUST BE ANOTHER WAY TO AUTO SCAN Base.metadata WITHOUT IMPORTING THESE MODELS
 from src.fastapiauth.models.user import User
 from src.fastapiauth.models.book import Book
 
@@ -84,7 +80,7 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
-async def run_migrations_online() -> None:
+def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
     asyncio.run(run_async_migrations())
 # def run_migrations_online() -> None:
