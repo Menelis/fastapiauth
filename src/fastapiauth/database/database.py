@@ -6,11 +6,6 @@ from src.fastapiauth import DB_URL
 class Base(DeclarativeBase):
     pass
 
-# from ..models.user import User
-# from ..models.book import Book
-
-#my_tables = [Book.__table__, User.__table__]
-
 engine = create_async_engine(DB_URL, echo=True)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False, autoflush=False)
 
