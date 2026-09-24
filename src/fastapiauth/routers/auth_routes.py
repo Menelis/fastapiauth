@@ -28,7 +28,7 @@ def http_exception(detail: str = "Invalid Token",
 async def get_current_user(token: str = Depends(JwtBearer()),
                            db_session: AsyncConnection = Depends(get_database)):
     try:
-        payload = decode_access_token(token);
+        payload = decode_access_token(token)
         username: str = payload.get("sub")
         if username is None:
             raise http_exception()
@@ -39,7 +39,7 @@ async def get_current_user(token: str = Depends(JwtBearer()),
     
     user = await UserRepository(db_session).get_by_email(username)
     if user is None:
-        raise http_exception(detail="User does not exists")
+        raise http_exception(detail="User does not exist")
     return user
 
 @auth_router.post("/signin", response_model=TokenResponse, tags=["Token"])
@@ -49,7 +49,7 @@ async def sign_in(
     
     user = await UserRepository(db_session).authenticate(user_login)
     if not user:
-        raise http_exception(detail="Invalud username or password")
+        raise http_exception(detail="Invalid username or password")
     expire_in_minutes = timedelta(minutes=TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=expire_in_minutes)
